@@ -1,8 +1,9 @@
-# EdgeX Foundry on Kubernetes
-
-A [Helm](https://helm.sh/) chart to easily deploy the EdgeX IoT project on Kubernetes.
-Based on EdgeX [Geneva](https://github.com/edgexfoundry/developer-scripts/tree/master/releases/geneva/compose-files) version.
-
+# EdgeX Foundry on Kubernetes  
+Using helm chart to deploy Edgex in a high availability 
+## Adding high availability redis cluster  
+Redis sentinel clustering is adopted to improve the storage high availability features of the deployment.   
+## Description  
+We should have at least three hosts or virtual machines ready to deploy three Redis servers and three sentinels.In the Redis server, only the master node is readable and writable, while the other nodes are readable only. The master node will synchronize the write operation to the two slave nodes to maintain the data consistency of the whole cluster.The sentinel is responsible for monitoring and maintaining the whole cluster. When the master node is suspended, the sentinel will choose one of the slave nodes as the master node, which ensures the availability of the service.When a dead node resumes service, it is also added to the cluster from its node identity.
 ## Prerequisites
 
 - Kubernetes cluster 1.10+
