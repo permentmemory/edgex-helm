@@ -30,7 +30,7 @@ spec:
         - name: KUIPER_REST_PORT
           value: "48075"
         - name: EDGEX_SERVER
-          value: {{.Values.edgex.app.appservice.rules}}
+          value: {{.Values.edgex.dnsserver.appservice.rules}}
         - name: EDGEX_SERVICE_SERVER
           value: http://{{.Values.edgex.dnsserver.core.data}}:48080
         - name: EDGEX_TOPIC

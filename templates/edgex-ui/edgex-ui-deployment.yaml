@@ -35,7 +35,7 @@ spec:
         - name: Clients_Notification_Host
           value: 192.168.1.25
         - name: Clients_Scheduler_Host
-          value:192.168.1.25
+          value: 192.168.1.25
         - name: Clients_RuleEngine_Host
           value: 192.168.1.25
         - name: Clients_CoreExport_Host

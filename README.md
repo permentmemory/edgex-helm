@@ -8,23 +8,24 @@ Based on EdgeX [Geneva](https://github.com/edgexfoundry/developer-scripts/tree/m
 - KubeEdge 1.3.0+
 - [Helm](https://helm.sh/) 2.8.0+
 
-## Installation
+## Installation      
+1. Change the edge-app-dnsserver value in Values to the IP address of the deployed native
+2. Change the env parameter in the YAML file of UI Deployment to the deploy native IP address
+3. Install the EdgeX helm chart with a release name edgex-geneva
 
-Install the EdgeX helm chart with a release name edgex-geneva
-
-- helm2
-
-```bash
-$ git clone https://github.com/DaveZLB/edgex-helm.git
-$ helm install --name edgex-geneva edgex-helm
-```
-
-- helm3
-
-```bash
-$ git clone https://github.com/DaveZLB/edgex-helm.git
-$ helm install edgex-geneva edgex-helm
-```
+	- helm2
+	
+	```bash
+	$ git clone https://github.com/DaveZLB/edgex-helm.git
+	$ helm install --name edgex-geneva edgex-helm
+	```
+	
+	- helm3
+	
+	```bash
+	$ git clone https://github.com/DaveZLB/edgex-helm.git
+	$ helm install edgex-geneva edgex-helm
+	```
 
 ## Uninstallation
 
@@ -68,13 +69,5 @@ you can implement your customized version based on this.
 	4、edgex-support-logging's /edgex/logs directory is mapped to the host's /mnt/edgex-support-logging directory.
 
 
-## Some articles about deploying edgex to kubernetes
-
-- VMware China R&D Center
-https://mp.weixin.qq.com/s/ECdEkc9QdkVScn4Lvl_JJA
-
-## Feedback
-
-If you find a bug or want to request a new feature, please open a [GitHub Issue](https://github.com/DaveZLB/edgex-helm/issues)
 
 
