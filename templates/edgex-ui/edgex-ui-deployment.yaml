@@ -4,6 +4,7 @@ metadata:
   labels:
     org.edgexfoundry.service: {{.Values.edgex.app.ui}}
   name: {{.Values.edgex.app.ui}}
+  namespace: default
 spec:
   replicas: {{.Values.edgex.replicas.ui}}
   selector:
@@ -15,6 +16,7 @@ spec:
     metadata:
       labels:
         org.edgexfoundry.service: {{.Values.edgex.app.ui}}
+      namespace: default
     spec:
       containers:
       - name: {{.Values.edgex.app.ui}}
@@ -22,21 +24,24 @@ spec:
         imagePullPolicy: {{.Values.edgex.image.ui.pullPolicy}}
         ports:
         - containerPort: 4000
+          hostPort: 4000
         env:
         - name: Clients_CoreData_Host
-          value: {{.Values.edgex.app.core.data}}
+          value: 192.168.1.25
         - name: Clients_Metadata_Host
-          value: {{.Values.edgex.app.core.metadata}}
+          value: 192.168.1.25
         - name: Clients_CoreCommand_Host
-          value: {{.Values.edgex.app.core.command}}
+          value: 192.168.1.25
         - name: Clients_Notification_Host
-          value: {{.Values.edgex.app.support.notifications}}
+          value: 192.168.1.25
         - name: Clients_Scheduler_Host
-          value: {{.Values.edgex.app.support.scheduler}}
+          value:192.168.1.25
         - name: Clients_RuleEngine_Host
-          value: {{.Values.edgex.app.support.rulesengine}}
+          value: 192.168.1.25
+        - name: Clients_CoreExport_Host
+          value: 192.168.1.25
         - name: Registry_Host
-          value: {{.Values.edgex.app.core.consul}}
+          value: 192.168.1.25
         readinessProbe:
           httpGet:
             path: /api/v1/ping

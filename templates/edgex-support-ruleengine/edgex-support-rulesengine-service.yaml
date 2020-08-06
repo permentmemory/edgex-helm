@@ -4,14 +4,15 @@ metadata:
   labels:
     org.edgexfoundry.service: {{.Values.edgex.app.support.rulesengine}}
   name: {{.Values.edgex.app.support.rulesengine}}
+  namespace: default
 spec:
   ports:
-  - name: "48075"
+  - name: http-0
     port: 48075
+    protocol: TCP
     targetPort: 48075
-    nodePort: {{.Values.expose.nodePort.support.rulesengine}}
   selector:
     org.edgexfoundry.service: {{.Values.edgex.app.support.rulesengine}}
-  type: {{.Values.expose.type}}
+  type: {{.Values.edgex.serviceType}}
 status:
   loadBalancer: {}

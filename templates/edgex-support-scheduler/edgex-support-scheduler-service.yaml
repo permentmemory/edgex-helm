@@ -4,14 +4,15 @@ metadata:
   labels:
     org.edgexfoundry.service: {{.Values.edgex.app.support.scheduler}}
   name: {{.Values.edgex.app.support.scheduler}}
+  namespace: default
 spec:
   ports:
-  - name: "48085"
+  - name: http-0
     port: 48085
+    protocol: TCP
     targetPort: 48085
-    nodePort: {{.Values.expose.nodePort.support.scheduler}}
   selector:
     org.edgexfoundry.service: {{.Values.edgex.app.support.scheduler}}
-  type: {{.Values.expose.type}}
+  type: {{.Values.edgex.serviceType}}
 status:
   loadBalancer: {}

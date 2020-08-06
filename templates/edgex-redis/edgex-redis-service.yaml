@@ -4,14 +4,16 @@ metadata:
   labels:
     org.edgexfoundry.service: {{.Values.edgex.app.redis}}
   name: {{.Values.edgex.app.redis}}
+  namespace: default
 spec:
   ports:
-  - name: "6379"
+  - name: http-0
     port: 6379
+    protocol: TCP
     targetPort: 6379
-    nodePort: {{.Values.expose.nodePort.redis}}
   selector:
     org.edgexfoundry.service: {{.Values.edgex.app.redis}}
-  type: {{.Values.expose.type}}
+  type: {{.Values.edgex.serviceType}}
 status:
   loadBalancer: {}
+  

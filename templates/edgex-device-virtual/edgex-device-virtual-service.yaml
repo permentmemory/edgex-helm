@@ -4,14 +4,15 @@ metadata:
   labels:
     org.edgexfoundry.service: {{.Values.edgex.app.device.virtual}}
   name: {{.Values.edgex.app.device.virtual}}
+  namespace: default
 spec:
   ports:
-  - name: "49990"
+  - name: http-0
     port: 49990
+    protocol: TCP
     targetPort: 49990
-    nodePort: {{.Values.expose.nodePort.device.virtual}}
   selector:
     org.edgexfoundry.service: {{.Values.edgex.app.device.virtual}}
-  type: {{.Values.expose.type}}
+  type: {{.Values.edgex.serviceType}}
 status:
   loadBalancer: {}

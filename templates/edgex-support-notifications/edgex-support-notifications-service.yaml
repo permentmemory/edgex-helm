@@ -4,14 +4,15 @@ metadata:
   labels:
     org.edgexfoundry.service: {{.Values.edgex.app.support.notifications}}
   name: {{.Values.edgex.app.support.notifications}}
+  namespace: default
 spec:
   ports:
-  - name: "48060"
+  - name: http-0
     port: 48060
+    protocol: TCP
     targetPort: 48060
-    nodePort: {{.Values.expose.nodePort.support.notifications}}
   selector:
     org.edgexfoundry.service: {{.Values.edgex.app.support.notifications}}
-  type: {{.Values.expose.type}}
+  type: {{.Values.edgex.serviceType}}
 status:
   loadBalancer: {}

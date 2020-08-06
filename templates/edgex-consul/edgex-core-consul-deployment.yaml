@@ -16,16 +16,17 @@ spec:
       labels:
         org.edgexfoundry.service: {{.Values.edgex.app.core.consul}}
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: edge-node3
       containers:
       - name: {{.Values.edgex.app.core.consul}}
         image: {{.Values.edgex.image.core.consul.repository}}:{{.Values.edgex.image.core.consul.tag}}
         imagePullPolicy: {{.Values.edgex.image.core.consul.pullPolicy}}
         ports:
         - containerPort: 8400
+          hostPort: 8400
         - containerPort: 8500
-        envFrom:
-        - configMapRef:
-            name: edgex-common-variables
+          hostPort: 8500
         env:
         - name: EDGEX_DB
           value: "redis"
@@ -60,9 +61,5 @@ spec:
       restartPolicy: Always
       volumes:
       - name: consul-config
-        persistentVolumeClaim:
-          claimName: consul-config
       - name: consul-data
-        persistentVolumeClaim:
-          claimName: consul-data
 status: {}

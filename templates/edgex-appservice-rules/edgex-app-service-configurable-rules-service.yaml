@@ -4,14 +4,15 @@ metadata:
   labels:
     org.edgexfoundry.service: {{.Values.edgex.app.appservice.rules}}
   name: {{.Values.edgex.app.appservice.rules}}
+  namespace: default
 spec:
   ports:
-  - name: "48100"
+  - name: http-0
+    protocol: TCP
     port: 48100
     targetPort: 48100
-    nodePort: {{.Values.expose.nodePort.appservice.rules}}
   selector:
     org.edgexfoundry.service: {{.Values.edgex.app.appservice.rules}}
-  type: {{.Values.expose.type}}
+  clusterIP: None
 status:
   loadBalancer: {}

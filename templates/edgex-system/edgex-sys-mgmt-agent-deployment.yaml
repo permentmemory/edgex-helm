@@ -4,6 +4,7 @@ metadata:
   labels:
     org.edgexfoundry.service: {{.Values.edgex.app.system}}
   name: {{.Values.edgex.app.system}}
+  namespace: default
 spec:
   replicas: {{.Values.edgex.replicas.system}}
   selector:
@@ -15,23 +16,48 @@ spec:
     metadata:
       labels:
         org.edgexfoundry.service: {{.Values.edgex.app.system}}
+      namespace: default
     spec:
       containers:
       - name: {{.Values.edgex.app.system}}
         image: {{.Values.edgex.image.system.repository}}:{{.Values.edgex.image.system.tag}}
         imagePullPolicy: {{.Values.edgex.image.system.pullPolicy}}
+        command: ["/sys-mgmt-agent","-cp=consul.http://edgex-core-consul.default.svc.cluster.local:8500","--registry","--confdir=/res"]
         ports:
         - containerPort: 48090
+          hostPort: 48090
         envFrom:
-        - configMapRef:
-            name: edgex-common-variables
         env:
         - name: Service_Host
-          value: {{.Values.edgex.app.system}}
+          value: {{.Values.edgex.dnsserver.system}}
         - name: ExecutorPath
           value: "/sys-mgmt-executor"
         - name: MetricsMechanism
           value: "executor"
+        - name: EDGEX_SECURITY_SECRET_STORE
+          value: "false"
+        - name: edgex_registry
+          value: consul://{{.Values.edgex.dnsserver.core.consul}}:8500
+        - name: Registry_Host
+          value: {{.Values.edgex.dnsserver.core.consul}}
+        - name: Clients_CoreData_Host
+          value: {{.Values.edgex.dnsserver.core.data}}
+        - name:  Clients_Metadata_Host
+          value: {{.Values.edgex.dnsserver.core.metadata}}
+        - name: Clients_Notifications_Host
+          value: {{.Values.edgex.dnsserver.support.notifications}}
+        - name: Clients_Command_Host
+          value: {{.Values.edgex.dnsserver.core.command}}
+        - name: Clients_Scheduler_Host
+          value: {{.Values.edgex.dnsserver.support.scheduler}}
+        - name: Clients_RulesEngine_Host
+          value: {{.Values.edgex.dnsserver.support.rulesengine}}
+        - name: Clients_VirtualDevice_Host
+          value: {{.Values.edgex.dnsserver.device.virtual}}
+        - name: Databases_Primary_Host
+          value: {{.Values.edgex.dnsserver.redis}}
+        - name: Logging_EnableRemote
+          value: "false"
         readinessProbe:
           httpGet:
             path: /api/v1/ping

@@ -4,14 +4,15 @@ metadata:
   labels:
     org.edgexfoundry.service: {{.Values.edgex.app.core.command}}
   name: {{.Values.edgex.app.core.command}}
+  namespace: default
 spec:
   ports:
-  - name: "48082"
+  - name: http-0
     port: 48082
+    protocol: TCP
     targetPort: 48082
-    nodePort: {{.Values.expose.nodePort.core.command}}
   selector:
     org.edgexfoundry.service: {{.Values.edgex.app.core.command}}
-  type: {{.Values.expose.type}}
+  clusterIP: None
 status:
   loadBalancer: {}

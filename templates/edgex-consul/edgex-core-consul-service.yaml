@@ -4,17 +4,19 @@ metadata:
   labels:
     org.edgexfoundry.service: {{.Values.edgex.app.core.consul}}
   name: {{.Values.edgex.app.core.consul}}
+  namespace: default
 spec:
   ports:
-  - name: "8400"
+  - name: http-0
     port: 8400
+    protocol: TCP
     targetPort: 8400
-  - name: "8500"
+  - name: http-1
     port: 8500
+    protocol: TCP
     targetPort: 8500
-    nodePort: {{.Values.expose.nodePort.core.consul}}
   selector:
     org.edgexfoundry.service: {{.Values.edgex.app.core.consul}}
-  type: {{.Values.expose.type}}
+  type: {{.Values.edgex.serviceType}}
 status:
   loadBalancer: {}

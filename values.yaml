@@ -2,31 +2,11 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-
-expose:
-  # Option value: ClusterIP/NodePort/LoadBalancer
-  type: NodePort
-  nodePort:
-    core:
-      data: 30080
-      metadata: 30081
-      command: 30082
-      consul: 30850
-    support:
-      rulesengine: 30075
-      notifications: 30060
-      scheduler: 30085
-    appservice:
-      rules: 30100
-    device:
-      virtual: 31990
-      rest: 31986
-    ui: 30400
-    system: 30090
-    redis: 30079
-
 # edgex defines a set of configuration properties for application-level concerns
 edgex:
+  # Option value: ClusterIP/NodePort/LoadBalancer
+  serviceType: ClusterIP
+
   # app defines a single point in naming/referring to an application. For each application, the value
   # define its label name, resource name or base of the resource name, and service name.
   app:
@@ -47,6 +27,25 @@ edgex:
     ui: edgex-ui
     system: edgex-sys-mgmt-agent
     redis: edgex-redis
+  
+  dnsserver:
+    core:
+      command: edgex-core-command.default.svc.cluster.local
+      data: edgex-core-data.default.svc.cluster.local
+      metadata: edgex-core-metadata.default.svc.cluster.local
+      consul: edgex-core-consul.default.svc.cluster.local
+    support:
+      notifications: edgex-support-notifications.default.svc.cluster.local
+      rulesengine: edgex-support-rulesengine.default.svc.cluster.local
+      scheduler: edgex-support-scheduler.default.svc.cluster.local
+    appservice:
+      rules: edgex-app-service-configurable-rules.default.svc.cluster.local
+    device:
+      virtual: edgex-device-virtual.default.svc.cluster.local
+      rest: edgex-device-rest.default.svc.cluster.local
+    ui: edgex-ui.default.svc.cluster.local
+    system: edgex-sys-mgmt-agent.default.svc.cluster.local
+    redis: 192.168.1.25
 
   # image defines configuration properties for docker-image-level concerns
   image:
@@ -65,7 +64,7 @@ edgex:
         pullPolicy: IfNotPresent
       consul:
         repository: edgexfoundry/docker-edgex-consul
-        tag: 1.2.0
+        tag: 0.0.0
         pullPolicy: IfNotPresent
     support:
       notifications:

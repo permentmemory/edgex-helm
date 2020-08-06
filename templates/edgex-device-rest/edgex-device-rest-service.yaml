@@ -4,14 +4,15 @@ metadata:
   labels:
     org.edgexfoundry.service: {{.Values.edgex.app.device.rest}}
   name: {{.Values.edgex.app.device.rest}}
+  namespace: default
 spec:
   ports:
-  - name: "49986"
+  - name: http-0
     port: 49986
+    protocol: TCP
     targetPort: 49986
-    nodePort: {{.Values.expose.nodePort.device.rest}}
   selector:
     org.edgexfoundry.service: {{.Values.edgex.app.device.rest}}
-  type: {{.Values.expose.type}}
+  type: {{.Values.edgex.serviceType}}
 status:
   loadBalancer: {}

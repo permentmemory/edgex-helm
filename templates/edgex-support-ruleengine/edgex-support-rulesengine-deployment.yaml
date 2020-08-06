@@ -32,7 +32,7 @@ spec:
         - name: EDGEX_SERVER
           value: {{.Values.edgex.app.appservice.rules}}
         - name: EDGEX_SERVICE_SERVER
-          value: http://{{.Values.edgex.app.core.data}}:48080
+          value: http://{{.Values.edgex.dnsserver.core.data}}:48080
         - name: EDGEX_TOPIC
           value: "events"
         - name: EDGEX_PROTOCOL

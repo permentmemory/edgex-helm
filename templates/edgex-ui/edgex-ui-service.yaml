@@ -4,14 +4,15 @@ metadata:
   labels:
     org.edgexfoundry.service: {{.Values.edgex.app.ui}}
   name: {{.Values.edgex.app.ui}}
+  namespace: default
 spec:
   ports:
-  - name: "4000"
+  - name: http-0
     port: 4000
+    protocol: TCP
     targetPort: 4000
-    nodePort: {{.Values.expose.nodePort.ui}}
   selector:
     org.edgexfoundry.service: {{.Values.edgex.app.ui}}
-  type: {{.Values.expose.type}}
+  type: {{.Values.edgex.serviceType}}
 status:
   loadBalancer: {}
