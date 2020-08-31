@@ -29,20 +29,6 @@ status: {}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: db-data
-spec:
-  storageClassName: edgex-db-volume
-  accessModes:
-  - ReadWriteMany
-  resources:
-    requests:
-      storage: 512Mi
-status: {}
-
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
   name: log-data
 spec:
   storageClassName: edgex-support-logging-volume
